@@ -4,13 +4,11 @@
 
 ## ytvideo-whisper
 
----
 
 This is a Project that Download YouTube video and Generate the SRT subtitle python script
 
 Which is a can be used easily I guess?????
 
----
 
 ## Tested Video Example
 
@@ -18,7 +16,6 @@ Which is a can be used easily I guess?????
 
 [【雀。日麻小教室 2】脫離斷么染手對對仔|日麻新手看這邊](https://youtu.be/tD2fBWsZrZU)
 
----
 
 ## Installation
 
@@ -28,12 +25,9 @@ python3 start.py
 
 And Follow the Steps it should be auto Generated to the result Folder
 
----
 
 ## Run in Google Colab
 
 ### Important if you want to make it faster to generate, please enable the GPU in `Runtime -> Change Runtime Type -> Hardware accelerator` and Change the option to GPU
 
- \[!\[Open In Colab\](https://colab.research.google.com/assets/colab-badge.svg)\](https://colab.research.google.com/github/blusewill/ytvideo-whisper/blob/master/notebooks/ytvideo_whisper.ipynb)
- 
- 
+ [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/blusewill/ytvideo-whisper/blob/master/notebooks/ytvideo-whisper.ipynb)
