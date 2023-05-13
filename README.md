@@ -1,6 +1,4 @@
-# I haven't test the Python script yet because currently my Debian Unstable can't run this. Due to can't install openai-whisper package
-
-# if someone test this out and found some bugs, Please let me know in the issues tab
+### I haven't test the Python script yet because currently my Debian Unstable can't run this. Due to can't install openai-whisper package. If someone test this out and found some bugs, Please let me know in the issues tab
 
 ## ytvideo-whisper
 

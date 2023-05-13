@@ -5,7 +5,7 @@ from whisper.utils import get_writer
 
 # Load Whisper's Model "Default Model : Medium" (tiny,base,small,medium,large)
 
-model = whisper.load_model("tiny")
+model = whisper.load_model("medium")
 
 print("Whisper model loaded.")
 
