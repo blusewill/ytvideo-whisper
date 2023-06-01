@@ -125,6 +125,7 @@ while True:
     print("Video Link : ", links)
     print("File Name : ", file_rename)
     print("You Are going to : ", task)
+    print("Model : ", model_user)
     print("Language : ", language)
     print("Enable Cookies? : ", enable_cookies)
     print("Cookies location : ", cookies_location)

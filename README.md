@@ -45,8 +45,10 @@ And your Srt and Transcript File should be on Generated folder
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/blusewill/ytvideo-whisper/blob/master/ytvideo_whisper_KMN_BOT_Version.ipynb)
 
 
-## Thanks The tester of this Project
+## Thanks to The Contributor of this Project
 
 [來貘冰淇淋機器狼](https://www.plurk.com/KMN_BOT)
+Tester of Google Colab Project
 
 [blusewill](https://blusewill.ml)
+Tester of local Environment and Creator of this Project
