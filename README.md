@@ -34,7 +34,7 @@ And your Srt and Transcript File should be on Generated folder
 1. Change the Settings at Settings Code Block
 1. Click ``Runtime -> Run all`` (CTRL+F9)
 1. Click on the Connect to Google Drive
-1. And Wait for a moment your Generated Srt should be on ``Google Drive -> Whisper -> result`
+1. And Wait for a moment your Generated Srt should be on ``Google Drive -> Whisper -> result``
 
 ### Global Version
 
