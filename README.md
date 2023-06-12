@@ -30,7 +30,7 @@ And your Srt and Transcript File should be on Generated folder
 
 ## Run in Google Colab
 
-1. Check the Runtime Type is on GPU Mode in ``Runtime -> Change Runtime Type ``
+1. Check the Runtime Type is on GPU Mode in ``Runtime -> Change Runtime Type``
 1. Change the Settings at Settings Code Block
 1. Click ``Runtime -> Run all`` (CTRL+F9)
 1. Click on the Connect to Google Drive

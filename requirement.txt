@@ -2,3 +2,4 @@ openai-whisper
 yt-dlp
 ffmpeg
 inquirer
+requests

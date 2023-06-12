@@ -4,6 +4,7 @@ import whisper
 from whisper.utils import get_writer
 import inquirer
 import shutil
+import requests
 
 # Create temporary directory
 
@@ -214,3 +215,37 @@ directory_path = os.path.join(os.getcwd(), './temp')
 os.path.exists(directory_path)
 shutil.rmtree(directory_path)
 
+
+# Asking for Upload to anonfile
+questions6 = [
+            inquirer.List('upload', message='Do you want to Upload the Generated file to anonfile?', choices=['yes', 'no']),
+            ]
+
+answers6 = inquirer.prompt(questions6)
+
+upload_file = answers['upload']
+
+if upload_file.lower() == "yes":
+
+# Creating the ZIP file
+    archived = shutil.make_archive(file_rename, 'zip', '/content/result')
+
+    if os.path.exists(archived):
+        print(archived)
+
+    anonfile_api = 'https://api.anonfiles.com/upload'
+    zip_path = os.path.abspath(archive)
+
+    with open(zip_path, 'rb') as f:
+        # Send a POST request to the Anonfile API with the archive file as the payload
+        response = requests.post(url, files={'file': f})
+
+    # Check if the upload was successful
+    if response.status_code == 200:
+        # Print the download URL of the uploaded file
+        print(response.json()['data']['file']['url']['full'])
+        os.remove(zip_path)
+    else:
+        # Print an error message
+        print('Error the Following Status Code is : ', response.status_code, "Maybe the anonfile API is currently offline, if not please send a message in issues on github")
+        os.remove(zip_path)
