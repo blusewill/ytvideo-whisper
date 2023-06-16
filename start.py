@@ -223,7 +223,7 @@ questions6 = [
 
 answers6 = inquirer.prompt(questions6)
 
-upload_file = answers['upload']
+upload_file = answers6['upload']
 
 if upload_file.lower() == "yes":
 
@@ -234,11 +234,11 @@ if upload_file.lower() == "yes":
         print(archived)
 
     anonfile_api = 'https://api.anonfiles.com/upload'
-    zip_path = os.path.abspath(archive)
+    zip_path = os.path.abspath(archived)
 
     with open(zip_path, 'rb') as f:
         # Send a POST request to the Anonfile API with the archive file as the payload
-        response = requests.post(url, files={'file': f})
+        response = requests.post(anonfile_api, files={'file': f})
 
     # Check if the upload was successful
     if response.status_code == 200:

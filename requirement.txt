@@ -1,5 +1,5 @@
 openai-whisper
 yt-dlp
-ffmpeg
+ffmpeg-python
 inquirer
 requests
