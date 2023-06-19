@@ -188,8 +188,8 @@ if language.lower() == 'auto':
   result = model.transcribe(input_file, verbose=True, task=task)
 else:
   result = model.transcribe(input_file, verbose=True, task=task, language=language)
-
-os.mkdir("Generated")
+if not os.path.exists("Generated"):
+    os.mkdir("Generated")
 transcription_root = "./Generated"
 
 # Save as an SRT file
@@ -226,9 +226,20 @@ answers6 = inquirer.prompt(questions6)
 upload_file = answers6['upload']
 
 if upload_file.lower() == "yes":
+# Output to Another directory (./temparchive)
+    if not os.path.exists("temparchive"):
+        os.mkdir("temparchive")
+    
+    srt_writer = get_writer("srt", "./temparchive",)
+    srt_writer(result, new_filename)
+    
+    if Generate_Plain_Document.lower() == "yes":
+        srt_writer = get_writer("txt", "./temparchive",)
+        srt_writer(result, new_filename2)
+        print("Generated srt and txt file in the Generated Folder.")
 
 # Creating the ZIP file
-    archived = shutil.make_archive(file_rename, 'zip', '/content/result')
+    archived = shutil.make_archive(file_rename, 'zip', './temparchive')
 
     if os.path.exists(archived):
         print(archived)
@@ -245,7 +256,9 @@ if upload_file.lower() == "yes":
         # Print the download URL of the uploaded file
         print(response.json()['data']['file']['url']['full'])
         os.remove(zip_path)
+        shutil.rmtree("temparchive")
     else:
         # Print an error message
         print('Error the Following Status Code is : ', response.status_code, "Maybe the anonfile API is currently offline, if not please send a message in issues on github")
         os.remove(zip_path)
+        shutil.rmtree("temparchive") 
