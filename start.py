@@ -2,6 +2,7 @@ import os
 import yt_dlp
 import whisper
 from whisper.utils import get_writer
+from transfersh_client.app import send_to_transfersh, create_zip, remove_file
 import inquirer
 import shutil
 import requests
@@ -182,25 +183,36 @@ model = whisper.load_model(model_user)
 print("Whisper model loaded.")
 
 filename = "audio.mp3"
+
 input_directory = "./temp"
+
 input_file = f"{input_directory}/{filename}"
+
 if language.lower() == 'auto':
   result = model.transcribe(input_file, verbose=True, task=task)
 else:
   result = model.transcribe(input_file, verbose=True, task=task, language=language)
 if not os.path.exists("Generated"):
     os.mkdir("Generated")
+
 transcription_root = "./Generated"
+
+# Setup Options for SRT/TXT file
+options = {
+    'max_line_width': None,
+    'max_line_count': None,
+    'highlight_words': False
+}
 
 # Save as an SRT file
 srt_writer = get_writer("srt", transcription_root,)
-srt_writer(result, new_filename)
+srt_writer(result, new_filename, options)
 
 if Generate_Plain_Document.lower() == "yes":
 
   # Save as TXT file
   srt_writer = get_writer("txt", transcription_root,)
-  srt_writer(result, new_filename2)
+  srt_writer(result, new_filename2,options)
   print("Generated srt and txt file in the Generated Folder.")
 
 else:
@@ -218,14 +230,31 @@ shutil.rmtree(directory_path)
 
 # Asking for Upload to anonfile
 questions6 = [
-            inquirer.List('upload', message='Do you want to Upload the Generated file to anonfile?', choices=['yes', 'no']),
+            inquirer.List('upload', message='Do you want to Upload the Generated file to cloud service?', choices=['yes', 'no']),
             ]
 
 answers6 = inquirer.prompt(questions6)
 
-upload_file = answers6['upload']
+upload_file_cloud = answers6['upload']
 
-if upload_file.lower() == "yes":
+# Asking for upload service
+
+if upload_file_cloud.lower() == "yes":
+   
+   archived = shutil.make_archive(file_rename, 'zip', './temparchive')
+
+   questions7 = [
+            inquirer.List('service', message='Please choose your cloud services?', choices=['anonfiles', 'transfer.sh']),
+            ]
+
+   answers7 = inquirer.prompt(questions7)
+
+   cloud_service = answers7['service']
+
+
+# Anonfile
+
+if cloud_service.lower() == "anonfiles":
 # Output to Another directory (./temparchive)
     if not os.path.exists("temparchive"):
         os.mkdir("temparchive")
@@ -239,8 +268,7 @@ if upload_file.lower() == "yes":
         print("Generated srt and txt file in the Generated Folder.")
 
 # Creating the ZIP file
-    archived = shutil.make_archive(file_rename, 'zip', './temparchive')
-
+    
     if os.path.exists(archived):
         print(archived)
 
@@ -261,4 +289,13 @@ if upload_file.lower() == "yes":
         # Print an error message
         print('Error the Following Status Code is : ', response.status_code, "Maybe the anonfile API is currently offline, if not please send a message in issues on github")
         os.remove(zip_path)
-        shutil.rmtree("temparchive") 
+        shutil.rmtree("temparchive")
+else:
+     
+     def send_files_from_dir():
+         directory = '/content'
+         send_to_transfersh(archived, clipboard=False)  # sends archive to transfer.sh
+
+
+     if __name__ == '__main__':
+        send_files_from_dir()

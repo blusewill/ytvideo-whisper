@@ -3,3 +3,6 @@ yt-dlp
 ffmpeg-python
 inquirer
 requests
+transfersh_client
+pyperclip
+wget
