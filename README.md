@@ -16,17 +16,43 @@ Which is a can be used easily I guess?????
 
 Install [Python](https://www.python.org/) on your system
 
-**Make Sure add to $PATH**
+### Linux Method
 
-And Run the Following Command
+You can run the following scripts to set it up.
 
-```
-pip3 install -r requirement.txt
+`./setup-requirement.sh `
 
-python3 start.py
-```
+Will setup a Virtual Environment and install the dependency package all in one go!
 
-And your Srt and Transcript File should be on Generated folder
+And After the installation all you have to run is
+
+`./run-script.sh`
+
+It will mount the Virtual Environment and execute the script
+
+### Manual Method
+
+Create a Python Virtual Environment
+
+`python3 -m venv ./.virtualenv`
+
+Activate the Virtual Environment
+
+bash/zsh : `source ./.virtualenv/bin/activate`
+
+csh/tcsh : `source ./.virtualenv/bin/activate.csh`
+
+fish : `source ./.virtualenv/bin/activate.fish`
+
+powershell :
+
+Allow the powershell execution 
+
+`Set-ExecutionPolicy -ExecutionPolicy Bypass`
+
+And Run the following powershell Script
+
+`./.virtualenv/bin/Activate.ps1`
 
 ## Run in Google Colab
 
