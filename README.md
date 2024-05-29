@@ -44,13 +44,13 @@ csh/tcsh : `source ./.virtualenv/bin/activate.csh`
 
 fish : `source ./.virtualenv/bin/activate.fish`
 
-powershell :
+Powershell :
 
-Allow the powershell execution 
+Allow the Powershell execution 
 
 `Set-ExecutionPolicy -ExecutionPolicy Bypass`
 
-And Run the following powershell Script
+And Run the following Powershell Script
 
 `./.virtualenv/bin/Activate.ps1`
 
@@ -71,10 +71,23 @@ And Run the following powershell Script
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/blusewill/ytvideo-whisper/blob/master/ytvideo_whisper_KMN_BOT_Version.ipynb)
 
 
+## Todo list
+
+- [ ] Windows GPU Support
+- [ ] Implment Faster API
+- [ ] Custom Model
+- [ ] Installation Script
+
+Contribution are also Welcome!
+
+
 ## Thanks to The Contributor of this Project
 
-[來貘冰淇淋機器狼](https://www.plurk.com/KMN_BOT)
+[blusewill](https://blusewill.us.to)
+Tester of local Environment and Creator of this Project
+
+[機器狼🤖語音辨識AI](https://www.plurk.com/KMN_BOT)
 Tester of Google Colab Project
 
-[blusewill](https://blusewill.ml)
-Tester of local Environment and Creator of this Project
+[刺蝟瑞歐的小行星](https://www.youtube.com/@RiccioReo)
+The Test Video Provider
