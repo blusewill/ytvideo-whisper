@@ -2,27 +2,48 @@ import os
 import yt_dlp
 import whisper
 from whisper.utils import get_writer
-from transfersh_client.app import send_to_transfersh, create_zip, remove_file
 import inquirer
 import shutil
 import requests
+from datetime import datetime
+import pycurl
+from io import BytesIO
+
+# Execuction Time Start
+
+start_time = datetime.now()
 
 # Create temporary directory
 
-path = './temp'
+
+PWD = os.getcwd()
+
+path = f'{PWD}/temp'
 
 if not os.path.exists(path):
   os.mkdir(path)
 
 while True:
-
+    # Asking the user to use the audio file already in the computer or fetch from YouTube
     os.system('cls' if os.name=='nt' else 'clear')
 
+    questions_audio = [
+        inquirer.List('audio', message='Are you going to use your local file or fetch the audio from YouTube.', choices=['local', 'youtube']),
+    ]
+# Set audio's Answer
 
-# Asking Question
+    answers = inquirer.prompt(questions_audio)
 
-# Video Download
-    links = input("Please type your YouTube Video Link Here and Press Enter : ")
+    audio_fetch = answers['audio']
+
+# Clear the Screen
+    os.system('cls' if os.name=='nt' else 'clear')
+
+    if audio_fetch == 'local':
+        local = input('Where is the file located (mp3 file format only) : ')
+    else:
+        # Video Download
+        links = input("Please type your YouTube Video Link Here and Press Enter : ")
 # Rename the Generated SRT File
     file_rename = input("Please input your filename here : ")
     new_filename = os.path.splitext(file_rename)[0] + ".srt"
@@ -66,23 +87,26 @@ while True:
         questions3 = [
             inquirer.List('language', message='Do you want to Specify language?', choices=['yes', 'no']),
         ]
-
+        
         answers3 = inquirer.prompt(questions3)
-
+        
         language_choices = answers3['language']
-
+        
         os.system('cls' if os.name=='nt' else 'clear')
-
+        
         if language_choices.lower() == 'yes':
-            
+        
             language = input("Please type the language you are going to transcribe : ")
-
+        
+            os.system('cls' if os.name=='nt' else 'clear')
         else:
-            
+        
             language = "auto"
-
+    
     elif task.lower() == 'translate':
+    
         language = input("Please type the language you are going to translate : ")
+    
         os.system('cls' if os.name=='nt' else 'clear')
 
 # Asking for Plain Document
@@ -99,40 +123,50 @@ while True:
     os.system('cls' if os.name=='nt' else 'clear')
 
 # Cookies for Downloading Video
-      
-    print("Your cookies might get leaked, and I will not take any responsibility if your account gets stolen.")
-    print("The recommended approach is to use another Google Account's cookies to run this tool.")
-    print("If it is a private video, you can share the video with that Google Account to grant access to it.")
-    print("")
+    if audio_fetch.lower() == 'youtube':
+        print("Your cookies might get leaked, and I will not take any responsibility if your account gets stolen.")
+        print("The recommended approach is to use another Google Account's cookies to run this tool.")
+        print("If it is a private video, you can share the video with that Google Account to grant access to it.")
+        print("")
     
-    questions5 = [
-            inquirer.List('cookies', message='Do you want to enable Cookies login file to Download?', choices=['yes', 'no']),
-            ]
+        questions5 = [
+                inquirer.List('cookies', message='Do you want to enable Cookies login file to Download?', choices=['yes', 'no']),
+                ]
     
-    answers5 = inquirer.prompt(questions5)
+        answers5 = inquirer.prompt(questions5)
 
-    enable_cookies = answers5['cookies']
+        enable_cookies = answers5['cookies']
     
-    if enable_cookies.lower() == 'yes':
-        print("Please Paste your Cookies file location at here")
-        cookies_location = input("")
-    else:
-        cookies_location = "Disabled"
-
-    os.system('cls' if os.name=='nt' else 'clear')
+        if enable_cookies.lower() == 'yes':
+            print("Please Paste your Cookies file location at here")
+            cookies_location = input("")
+            os.system('cls' if os.name=='nt' else 'clear')
+        else:
+            cookies_location = "Disabled"
+            os.system('cls' if os.name=='nt' else 'clear')
 
 # If User Choose Yes in Translate
-
-    print("Please Check the Following Settings is Correct or not")
-    print("Video Link : ", links)
-    print("File Name : ", file_rename)
-    print("You Are going to : ", task)
-    print("Model : ", model_user)
-    print("Language : ", language)
-    print("Enable Cookies? : ", enable_cookies)
-    print("Cookies location : ", cookies_location)
-    print("Generate Transcript? : ", Generate_Plain_Document)
-    print("")
+    if audio_fetch.lower() == 'local':
+        print("Please Check the Following Settings is Correct or not")
+        print("File Path : ", local)
+        print("File Name : ", file_rename)
+        print("You Are going to : ", task)
+        print("Model : ", model_user)
+        print("Language : ", language)
+        print("Generate Transcript? : ", Generate_Plain_Document)
+        print("")
+    else:
+        print("Please Check the Following Settings is Correct or not")
+        print("Video Link : ", links)
+        print("File Name : ", file_rename)
+        print("You Are going to : ", task)
+        print("Model : ", model_user)
+        print("Language : ", language)
+        print("Enable Cookies? : ", enable_cookies)
+        print("Cookies location : ", cookies_location)
+        print("Generate Transcript? : ", Generate_Plain_Document)
+        print("")
+    
     questions3 = [
                 inquirer.List('continue', message='Is these Options all Correct?', choices=['yes', 'no']),
             ]
@@ -145,36 +179,36 @@ while True:
         break
 
 # Download the Video
+if audio_fetch.lower() == "youtube":
+    import yt_dlp
+    output_location = f'{PWD}/temp/audio'
+    if enable_cookies.lower() == "yes":
+        ydl_opts = {
+            'format': 'bestaudio/best',
+            'postprocessors': [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': 'mp3',
+                'preferredquality': '192',
+            }],
+            'outtmpl': output_location,
+            'cookiefile': cookies_location
+        }
+    else:
+        ydl_opts = {
+            'format': 'bestaudio/best',
+            'postprocessors': [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': 'mp3',
+                'preferredquality': '192',
+            }],
+            'outtmpl': output_location,
+        }
 
-import yt_dlp
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        ydl.download([links])
+elif audio_fetch.lower() == 'local':
+    shutil.copyfile(f"{local}", f"{PWD}/temp/audio.mp3")
 
-if enable_cookies.lower() == "yes":
-
-  ydl_opts = {
-      'format': 'bestaudio/best',
-      'postprocessors': [{
-          'key': 'FFmpegExtractAudio',
-          'preferredcodec': 'mp3',
-          'preferredquality': '192',
-      }],
-          'outtmpl': './temp/audio',
-          'cookiefile': cookies_location
-  }
-
-else:
-
-    ydl_opts = {
-      'format': 'bestaudio/best',
-      'postprocessors': [{
-          'key': 'FFmpegExtractAudio',
-          'preferredcodec': 'mp3',
-          'preferredquality': '192',
-      }],
-          'outtmpl': './temp/audio',
-  }
-
-with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-    ydl.download([links])
 
 # Import Model and Generating Srt File
 
@@ -184,7 +218,7 @@ print("Whisper model loaded.")
 
 filename = "audio.mp3"
 
-input_directory = "./temp"
+input_directory = f"{PWD}/temp"
 
 input_file = f"{input_directory}/{filename}"
 
@@ -195,7 +229,7 @@ else:
 if not os.path.exists("Generated"):
     os.mkdir("Generated")
 
-transcription_root = "./Generated"
+transcription_root = f"{PWD}/Generated"
 
 # Setup Options for SRT/TXT file
 options = {
@@ -222,7 +256,7 @@ else:
 
 # Delete the Temp file
 
-directory_path = os.path.join(os.getcwd(), './temp')
+directory_path = os.path.join(os.getcwd(), f'{PWD}/temp')
 
 os.path.exists(directory_path)
 shutil.rmtree(directory_path)
@@ -241,10 +275,8 @@ upload_file_cloud = answers6['upload']
 
 if upload_file_cloud.lower() == "yes":
    
-   archived = shutil.make_archive(file_rename, 'zip', './temparchive')
-
    questions7 = [
-            inquirer.List('service', message='Please choose your cloud services?', choices=['anonfiles', 'transfer.sh']),
+            inquirer.List('service', message='Please choose your cloud services?', choices=['bashupload']),
             ]
 
    answers7 = inquirer.prompt(questions7)
@@ -252,50 +284,54 @@ if upload_file_cloud.lower() == "yes":
    cloud_service = answers7['service']
 
 
-# Anonfile
+   if cloud_service.lower() == "bashupload":
+        # Output to Another directory ({PWD}/temparchive)
+        os.makedirs(f"{PWD}/temparchive")
 
-if cloud_service.lower() == "anonfiles":
-# Output to Another directory (./temparchive)
-    if not os.path.exists("temparchive"):
-        os.mkdir("temparchive")
-    
-    srt_writer = get_writer("srt", "./temparchive",)
-    srt_writer(result, new_filename)
-    
-    if Generate_Plain_Document.lower() == "yes":
-        srt_writer = get_writer("txt", "./temparchive",)
+        srt_writer = get_writer("srt", f"{PWD}/temparchive")
+        srt_writer(result, new_filename)
+        
+        srt_writer = get_writer("txt", f"{PWD}/temparchive")
         srt_writer(result, new_filename2)
-        print("Generated srt and txt file in the Generated Folder.")
+        filenametime = datetime.now().strftime("%m-%d-%Y-%H-%M-%S")
+        archived = shutil.make_archive(filenametime, 'zip', f'{PWD}/temparchive')
+        
+        if os.path.exists(archived):
+            print(archived)
+            file_path = archived
+          
+        upload_url = 'bashupload.com'
+        new_new_filename = f'{archived}.zip'
 
-# Creating the ZIP file
-    
-    if os.path.exists(archived):
-        print(archived)
+        # Initialize a cURL object
+        c = pycurl.Curl()
 
-    anonfile_api = 'https://api.anonfiles.com/upload'
-    zip_path = os.path.abspath(archived)
+        # Prepare the form data
+        c.setopt(c.URL, upload_url)
+        c.setopt(c.HTTPPOST, [
+            ('file', (
+                # Set the filename in the form data
+                c.FORM_FILE, file_path,
+                c.FORM_FILENAME, new_new_filename
+            )),
+        ])
 
-    with open(zip_path, 'rb') as f:
-        # Send a POST request to the Anonfile API with the archive file as the payload
-        response = requests.post(anonfile_api, files={'file': f})
+        # Capture the response
+        response = BytesIO()
+        c.setopt(c.WRITEFUNCTION, response.write)
 
-    # Check if the upload was successful
-    if response.status_code == 200:
-        # Print the download URL of the uploaded file
-        print(response.json()['data']['file']['url']['full'])
-        os.remove(zip_path)
-        shutil.rmtree("temparchive")
-    else:
-        # Print an error message
-        print('Error the Following Status Code is : ', response.status_code, "Maybe the anonfile API is currently offline, if not please send a message in issues on github")
-        os.remove(zip_path)
-        shutil.rmtree("temparchive")
-else:
-     
-     def send_files_from_dir():
-         directory = '/content'
-         send_to_transfersh(archived, clipboard=False)  # sends archive to transfer.sh
+        # Perform the file upload
+        c.perform()
+        data = response.getvalue().decode("UTF-8")
+        print(data)
+
+        shutil.rmtree(f"{PWD}/temparchive")
+        os.remove(archived)
+            
+
+   else:
+        print("Upload File Failed")
 
 
-     if __name__ == '__main__':
-        send_files_from_dir()
+end_time = datetime.now()
+print('Execution Time: {}'.format(end_time - start_time))
