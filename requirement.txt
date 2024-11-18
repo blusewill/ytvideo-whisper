@@ -1,8 +1,9 @@
-openai-whisper
+faster-whisper
+ctranslate2==4.4.0
 yt-dlp
-ffmpeg-python
-inquirer
-requests
+ipython
 pyperclip
 wget
 pycurl
+pysubs2
+inquirer
