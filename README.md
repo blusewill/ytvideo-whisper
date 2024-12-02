@@ -74,8 +74,8 @@ And Run the following Powershell Script
 ## Todo list
 
 - [ ] Windows GPU Support
-- [ ] Implment Faster API
-- [ ] Custom Model
+- [x] Implment Faster API
+- [x] Custom Model
 - [ ] Installation Script
 
 Contribution are also Welcome!
