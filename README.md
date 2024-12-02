@@ -86,7 +86,7 @@ Contribution are also Welcome!
 [blusewill](https://blusewill.us.to)
 Tester of local Environment and Creator of this Project
 
-[機器狼🤖語音辨識AI](https://www.plurk.com/KMN_BOT)
+[機器狼](https://www.plurk.com/KMN_BOT)
 Tester of Google Colab Project
 
 [刺蝟瑞歐的小行星](https://www.youtube.com/@RiccioReo)
