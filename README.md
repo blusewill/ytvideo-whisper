@@ -3,14 +3,12 @@ Languages Available：[English](README.md) [繁體中文](README-zh-tw.md)
 
 **ytvideo-whisper** is a Python script for downloading YouTube videos and generating SRT subtitles with ease.
 
----
 
 ## Tested Examples
 
 - [【雀。日麻小教室1】脫離斷么染手對對仔|日麻新手看這邊](https://youtu.be/b_O-TkpYi_w)
 - [【雀。日麻小教室 2】脫離斷么染手對對仔|日麻新手看這邊](https://youtu.be/tD2fBWsZrZU)
 
----
 
 ## Features
 
@@ -19,7 +17,6 @@ Languages Available：[English](README.md) [繁體中文](README-zh-tw.md)
 - Support for custom models.
 - Optimized for faster API usage.
 
----
 
 ## Running on Google Colab
 
@@ -40,7 +37,6 @@ Languages Available：[English](README.md) [繁體中文](README-zh-tw.md)
 - **KMN_BOT Special Version (Chinese Traditional)**  
   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/blusewill/ytvideo-whisper/blob/master/ytvideo_whisper_KMN_BOT_Version.ipynb)
 
----
 
 ## Installation
 
@@ -88,7 +84,6 @@ Languages Available：[English](README.md) [繁體中文](README-zh-tw.md)
        ./.virtualenv/bin/Activate.ps1
        ```
 
----
 
 ## Todo List
 
@@ -97,7 +92,6 @@ Languages Available：[English](README.md) [繁體中文](README-zh-tw.md)
 - [x] Support custom models.
 - [ ] Add an installation script.
 
----
 
 ## Contributors
 
