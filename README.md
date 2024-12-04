@@ -1,93 +1,110 @@
-## ytvideo-whisper
+Languages Available：[English](README.md) [繁體中文](README-zh-tw.md)
+# ytvideo-whisper
 
-This is a Project that Download YouTube video and Generate the SRT subtitle python script
+**ytvideo-whisper** is a Python script for downloading YouTube videos and generating SRT subtitles with ease.
 
-Which is a can be used easily I guess?????
+---
 
+## Tested Examples
 
-## Tested Video Example
+- [【雀。日麻小教室1】脫離斷么染手對對仔|日麻新手看這邊](https://youtu.be/b_O-TkpYi_w)
+- [【雀。日麻小教室 2】脫離斷么染手對對仔|日麻新手看這邊](https://youtu.be/tD2fBWsZrZU)
 
-[【雀。日麻小教室1】脫離斷么染手對對仔|日麻新手看這邊](https://youtu.be/b_O-TkpYi_w)
+---
 
-[【雀。日麻小教室 2】脫離斷么染手對對仔|日麻新手看這邊](https://youtu.be/tD2fBWsZrZU)
+## Features
 
+- Download YouTube videos and generate SRT subtitles.
+- Easily set up and run on local systems or Google Colab.
+- Support for custom models.
+- Optimized for faster API usage.
+
+---
+
+## Running on Google Colab
+
+1. Ensure the runtime type is set to **GPU**:
+   Runtime -> Change Runtime Type
+2. Update the settings in the settings code block.
+3. Click:
+   Runtime -> Run all (CTRL+F9)
+4. Connect to Google Drive.
+5. Generated subtitles (SRT) will appear in:  
+   Google Drive -> Whisper -> result
+
+### Colab Links
+
+- **Global Version**  
+  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/blusewill/ytvideo-whisper/blob/master/ytvideo_whisper.ipynb)
+
+- **KMN_BOT Special Version (Chinese Traditional)**  
+  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/blusewill/ytvideo-whisper/blob/master/ytvideo_whisper_KMN_BOT_Version.ipynb)
+
+---
 
 ## Installation
 
-Install [Python](https://www.python.org/) on your system
+### Prerequisites
 
-### Linux Method
+- Install [Python](https://www.python.org/) on your system.
 
-You can run the following scripts to set it up.
+### Automated Installation (Linux)
 
-`./setup-requirement.sh `
+1. Run the setup script to set up a virtual environment and install dependencies:
+   ```bash
+   ./setup-requirement.sh
+   ```
+2. Run the main script:
+   ```bash
+   ./run-script.sh
+   ```
 
-Will setup a Virtual Environment and install the dependency package all in one go!
+### Manual Installation
 
-And After the installation all you have to run is
+1. Create a Python virtual environment:
+   ```bash
+   python3 -m venv ./.virtualenv
+   ```
+2. Activate the virtual environment:
+   - **Bash/Zsh**:  
+     ```bash
+     source ./.virtualenv/bin/activate
+     ```
+   - **Csh/Tcsh**:  
+     ```bash
+     source ./.virtualenv/bin/activate.csh
+     ```
+   - **Fish**:  
+     ```bash
+     source ./.virtualenv/bin/activate.fish
+     ```
+   - **Powershell**:  
+     - Allow script execution:
+       ```powershell
+       Set-ExecutionPolicy -ExecutionPolicy Bypass
+       ```
+     - Activate the virtual environment:
+       ```powershell
+       ./.virtualenv/bin/Activate.ps1
+       ```
 
-`./run-script.sh`
+---
 
-It will mount the Virtual Environment and execute the script
+## Todo List
 
-### Manual Method
+- [ ] Add Windows GPU support.
+- [x] Implement faster API.
+- [x] Support custom models.
+- [ ] Add an installation script.
 
-Create a Python Virtual Environment
+---
 
-`python3 -m venv ./.virtualenv`
+## Contributors
 
-Activate the Virtual Environment
+- [blusewill](https://blusewill.us.to) – Creator and local environment tester.  
+- [機器狼](https://www.plurk.com/KMN_BOT) – Google Colab tester.  
+- [刺蝟瑞歐的小行星](https://www.youtube.com/@RiccioReo) – Test video provider.  
 
-bash/zsh : `source ./.virtualenv/bin/activate`
+---
 
-csh/tcsh : `source ./.virtualenv/bin/activate.csh`
-
-fish : `source ./.virtualenv/bin/activate.fish`
-
-Powershell :
-
-Allow the Powershell execution 
-
-`Set-ExecutionPolicy -ExecutionPolicy Bypass`
-
-And Run the following Powershell Script
-
-`./.virtualenv/bin/Activate.ps1`
-
-## Run in Google Colab
-
-1. Check the Runtime Type is on GPU Mode in ``Runtime -> Change Runtime Type``
-1. Change the Settings at Settings Code Block
-1. Click ``Runtime -> Run all`` (CTRL+F9)
-1. Click on the Connect to Google Drive
-1. And Wait for a moment your Generated Srt should be on ``Google Drive -> Whisper -> result``
-
-### Global Version
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/blusewill/ytvideo-whisper/blob/master/ytvideo_whisper.ipynb)
-
-### [KMN_BOT 機器狼](https://twitter.com/V_KMN_BOT) Special Version (Chinese Traditional Version)
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/blusewill/ytvideo-whisper/blob/master/ytvideo_whisper_KMN_BOT_Version.ipynb)
-
-
-## Todo list
-
-- [ ] Windows GPU Support
-- [x] Implment Faster API
-- [x] Custom Model
-- [ ] Installation Script
-
-Contribution are also Welcome!
-
-
-## Thanks to The Contributor of this Project
-
-[blusewill](https://blusewill.us.to)
-Tester of local Environment and Creator of this Project
-
-[機器狼](https://www.plurk.com/KMN_BOT)
-Tester of Google Colab Project
-
-[刺蝟瑞歐的小行星](https://www.youtube.com/@RiccioReo)
-The Test Video Provider
+Feel free to contribute and make this project even better! 🎉
