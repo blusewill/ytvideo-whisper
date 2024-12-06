@@ -81,13 +81,13 @@ Languages Available：[English](README.md) [繁體中文](README-zh-tw.md)
        ```
      - Activate the virtual environment:
        ```powershell
-       ./.virtualenv/bin/Activate.ps1
+       .\.virtualenv\Scripts\activate
        ```
 
 
 ## Todo List
 
-- [ ] Add Windows GPU support.
+- [x] Add Windows GPU support.
 - [x] Implement faster API.
 - [x] Support custom models.
 - [ ] Add an installation script.

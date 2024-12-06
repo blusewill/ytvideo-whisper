@@ -81,13 +81,13 @@
        ```
      - 啟動虛擬環境：  
        ```powershell
-       ./.virtualenv/bin/Activate.ps1
+       .\.virtualenv\Scripts\activate
        ```
 
 
 ## 待辦清單
 
-- [ ] 增加 Windows GPU 支援。  
+- [x] 增加 Windows GPU 支援。  
 - [x] 實作更快的 API。  
 - [x] 支援自訂模型。  
 - [ ] 增加安裝腳本。  
