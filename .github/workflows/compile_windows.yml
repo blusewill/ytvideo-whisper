@@ -30,7 +30,7 @@ jobs:
 
       - name: pyinstaller compile
         run: |
-          python -m pyinstaller --clean --copy-metadata readchar .\start.py
+          pyinstaller --clean --copy-metadata readchar .\start.py
 
       - name: Download CUDA Files
         run: |
