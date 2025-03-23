@@ -36,10 +36,15 @@ jobs:
         run: |
           Invoke-WebRequest https://github.com/Purfview/whisper-standalone-win/releases/download/libs/cuBLAS.and.cuDNN_CUDA12_win_v3.7z -OutFile cuda12.7z
 
+      - name: Install 7-Zip
+        run: |
+          choco install 7zip -y
+        shell: pwsh
+        
       - name: Extract File into build
-        uses: edgarrc/action-7z@v1
-        with:
-          args: x cuda12.7z -o.\dist\start\_internal\ctranslate2 -y
+        run: |
+          & "C:\Program Files\7-Zip\7z.exe" x cuda12.7z -o.\dist\start\_internal\ctranslate2 -y
+        shell: pwsh
 
       - name: Add to Archive
         run: |
