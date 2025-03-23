@@ -1,0 +1,89 @@
+name: Compile Windows
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  build-deploy:
+    name: Building ytvideo-whisper
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Setup Dependency
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: pyinstaller compile
+        run: |
+          python -m pyinstaller --clean --copy-metadata readchar .\start.py
+
+      - name: Download CUDA Files
+        run: |
+          Invoke-WebRequest https://github.com/Purfview/whisper-standalone-win/releases/download/libs/cuBLAS.and.cuDNN_CUDA12_win_v3.7z -OutFile cuda12.7z
+
+      - name: Extract File into build
+        uses: edgarrc/action-7z@v1
+        with:
+          args: x cuda12.7z -o.\dist\start\_internal\ctranslate2 -y
+
+      - name: Add to Archive
+        run: |
+          Compress-Archive -Path .\dist\start\* -DestinationPath ytvideo-whisper-windows.zip -Recurse
+
+      - name: Set Version to Today's Date
+        id: extract_version
+        run: |
+          echo "VERSION=$(Get-Date -Format 'yy.MM.dd')" >> $env:GITHUB_ENV
+        shell: pwsh
+
+      - name: Create Tag
+        id: create_tag
+        run: |
+          $tagExists = git tag -l $env:VERSION
+          if ($tagExists -eq "") {
+            git tag $env:VERSION
+            git push origin $env:VERSION
+          } else {
+            Write-Host "Tag $env:VERSION already exists, skipping tag creation"
+          }
+        shell: pwsh
+
+      - name: Generate Release Notes
+        id: generate_notes
+        uses: release-drafter/release-drafter@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          config-name: release-drafter.yml
+          version: ${{ env.VERSION }}
+
+      - name: Create and Upload Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.VERSION }}
+          name: Release ${{ env.VERSION }}
+          body: |
+            ${{ steps.generate_notes.outputs.body }}
+
+            ![GitHub Downloads (specific asset, specific tag)](https://img.shields.io/github/downloads/blusewill/ytvideo-whisper/${{ env.VERSION }}/ytvideo-whisper-windows.zip)
+          append_body: false
+          files: ytvideo-whisper-windows.zip
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
