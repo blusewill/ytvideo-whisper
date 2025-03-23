@@ -48,7 +48,7 @@ jobs:
 
       - name: Add to Archive
         run: |
-          Compress-Archive -Path .\dist\start\* -DestinationPath ytvideo-whisper-windows.zip -Recurse
+          Compress-Archive -Path .\dist\start\* -DestinationPath ytvideo-whisper-windows.zip
 
       - name: Set Version to Today's Date
         id: extract_version
