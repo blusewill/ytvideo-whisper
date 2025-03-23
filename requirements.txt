@@ -3,7 +3,5 @@ ctranslate2==4.5.0
 yt-dlp
 ipython
 pyperclip
-wget
-pycurl
 pysubs2
 inquirer

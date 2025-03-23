@@ -3,3 +3,4 @@ Generated/
 temp/
 temparchive/
 *.zip
+uv.lock
