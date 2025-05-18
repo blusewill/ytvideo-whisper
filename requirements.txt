@@ -1,7 +1,8 @@
 faster-whisper
-ctranslate2==4.5.0
+ctranslate2>=4.5.0
 yt-dlp
 ipython
 pyperclip
 pysubs2
 inquirer
+nicegui
